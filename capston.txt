@@ -1,0 +1,427 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.Remoting.Services;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace ConsoleApp18
+{
+    internal class Program
+    {
+        class Student
+        {
+            public string Name;
+            public string Email;
+            public int Phonenumber;
+            public string id;
+            public string Class;
+            public string grade;
+            public string Password;
+            public static int point = 100;
+            public void acc_ditails()
+            {
+                Console.Write("your name :");
+                Console.WriteLine(Name);
+                Console.Write("your Email : ");
+                Console.WriteLine(Email);
+                Console.Write("your id : ");
+                Console.WriteLine(id);
+                Console.Write("your phone : ");
+                Console.WriteLine(Phonenumber);
+                Console.Write("your class : ");
+                Console.WriteLine(Class);
+                Console.Write("your grade : ");
+                Console.WriteLine(grade);
+                Console.Write("your point : ");
+                Console.WriteLine(point);
+
+            }
+            public void view_point()
+            {
+                Console.Write("your point : ");
+                Console.WriteLine(point);
+            }
+            public void notes()
+            {
+                Console.WriteLine("---------------------");
+                Console.WriteLine("there is no Notes yet");
+                Console.WriteLine("---------------------");
+            }
+            public void view_grades()
+            {
+
+                Console.WriteLine("----------------------------");
+                Console.WriteLine("the grades in not added yet");
+                Console.WriteLine("-----------------------------");
+
+
+
+            }
+            public void view_rank()
+            {
+
+                Console.WriteLine("---------------------");
+                Console.WriteLine("27 : "+Name);
+                Console.WriteLine("---------------------");
+
+
+
+            }
+            public void ranking_table()
+            {
+                Console.WriteLine("-------------------------------------------------");
+                Console.Write("the point are culculating please try agian later");
+                Console.WriteLine("-------------------------------------------------");
+
+
+            }
+
+        }
+        class Teacher
+        {
+            public string Name;
+            public string Email;
+            public int Phonenumber;
+            public string id;
+            public string Class;
+            public string subject;
+            public string Password;
+            public List <string>note= new List <string>();
+            public void acc_ditails()
+            {
+                Console.Write("your name :");
+                Console.WriteLine(Name);
+                Console.Write("your Email : ");
+                Console.WriteLine(Email);
+                Console.Write("your id : ");
+                Console.WriteLine(id);
+                Console.Write("your phone : ");
+                Console.WriteLine(Phonenumber);
+                Console.Write("your class : ");
+                Console.WriteLine(Class);
+                Console.Write("your subject : ");
+                Console.WriteLine(subject);
+
+            }
+            public void add_notes()
+            {
+                Console.WriteLine("enter the note data");
+                string Note=Console.ReadLine();
+                Console.Write("Please Wait Complete processing");
+                for (int i = 0; i < 3; i++)
+                {
+                    Thread.Sleep(700);
+                    Console.Write(".");
+                }
+                Console.WriteLine();
+                note.Add(Note);
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("the note is added succsefuly");
+                Console.WriteLine("------------------------------");
+
+            }
+            public void view_notes()
+            {
+                Console.WriteLine("the notes you added : ");
+                foreach (var note in note)
+                {
+                    Console.WriteLine("---------------------");
+                    Console.WriteLine(note);
+                    Console.WriteLine("---------------------");
+                    
+                }
+            }
+            public void add_grade()
+            {
+                Console.WriteLine("enter student name : ");
+                string name = Console.ReadLine();
+                Console.WriteLine("enter the grade : ");
+                string grade = Console.ReadLine();
+                Console.Write("Please Wait Complete processing");
+                for (int i = 0; i < 3; i++)
+                {
+                    Thread.Sleep(700);
+                    Console.Write(".");
+                }
+                Console.WriteLine();
+                Console.WriteLine("------------------------------");
+                Console.WriteLine("the grade is added succsefuly");
+                Console.WriteLine("------------------------------");
+            }
+            public void ranking_table()
+            {
+                Console.WriteLine("-------------------------------------------------");
+                Console.WriteLine("the point are culculating please try agian later");
+                Console.WriteLine("-------------------------------------------------");
+
+
+            }
+
+
+        }
+     
+
+        static void Main(string[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            List<Student> students = new List<Student>();
+            List<Teacher> teachers = new List<Teacher>();
+            Teacher newteacher = new Teacher();
+            Student newstudent = new Student();
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("1: Sign Up");
+                    Console.WriteLine("2: Login");
+                    Console.WriteLine("3: Exit");
+                    int x = int.Parse(Console.ReadLine());
+                    if (x == 1)
+                    {
+                        Console.WriteLine("1: Teacher");
+                        Console.WriteLine("2: Student");
+                        int y = int.Parse(Console.ReadLine());
+                        if (y == 1)
+                        {
+                            
+                            Console.WriteLine("Please Enter Your Name");
+                            newteacher.Name = Console.ReadLine();
+                            Console.WriteLine("Please Enter Your Phone Number");
+                            newteacher.Phonenumber = int.Parse(Console.ReadLine());
+                            Console.WriteLine("please enter your id ");
+                            newteacher.id = Console.ReadLine();
+                            Console.WriteLine("please enter your subject ");
+                            newteacher.subject = Console.ReadLine();
+                            Console.WriteLine("please enter your class ");
+                            newteacher.Class = Console.ReadLine();
+                            Console.WriteLine("Please Enter Your Email");
+                            newteacher.Email = Console.ReadLine();
+                            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                            Regex regex = new Regex(pattern);
+                            if (regex.IsMatch(newteacher.Email))
+                            {
+                                Console.WriteLine("Please Enter Your Password");
+                                newteacher.Password = Console.ReadLine();
+                                Console.Write("Please Wait To Complete Your Information");
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Thread.Sleep(700);
+                                    Console.Write(".");
+                                }
+                                Console.WriteLine();
+                                Console.WriteLine("---------------------");
+                                teachers.Add(newteacher);
+                                Console.WriteLine("Registerd Successfully");
+                                Console.WriteLine("---------------------");
+                            }
+                            else
+                            {
+                                Console.WriteLine("---------------------");
+                                Console.WriteLine("Enter Right Email");
+                                Console.WriteLine("---------------------");
+                            }
+                        }
+                        else if (y == 2)
+                        {
+                            
+                            Console.WriteLine("Please Enter Your Name");
+                            newstudent.Name = Console.ReadLine();
+                            Console.WriteLine("Please Enter Your id");
+                            newstudent.id = Console.ReadLine();
+                            Console.WriteLine("Please Enter Your class");
+                            newstudent.Class = Console.ReadLine();
+                            Console.WriteLine("Please Enter Your grade");
+                            newstudent.grade = Console.ReadLine();
+                            Console.WriteLine("Please Enter Your Phone Number");
+                            newstudent.Phonenumber = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Please Enter Your Email");
+                            newstudent.Email = Console.ReadLine();
+                            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                            Regex regex = new Regex(pattern);
+                            if (regex.IsMatch(newstudent.Email))
+                            {
+                                Console.WriteLine("Please Enter Your Password");
+                                newstudent.Password = Console.ReadLine();
+                                Console.Write("Please Wait To Complete Your Information");
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Thread.Sleep(700);
+                                    Console.Write(".");
+                                }
+                                Console.WriteLine();
+                                Console.WriteLine("---------------------");
+                                students.Add(newstudent);
+                                Console.WriteLine("Registerd Successfully");
+                                Console.WriteLine("---------------------");
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("---------------------");
+                                Console.WriteLine("Enter Right Email");
+                                Console.WriteLine("---------------------");
+                            }
+                        }
+                    }
+                    else if (x == 2)
+                    {
+                        Console.WriteLine("1: Teacher");
+                        Console.WriteLine("2: Student");
+                        int z = int.Parse(Console.ReadLine());
+                        if (z == 1)
+                        {
+                            Console.WriteLine("Please Enter Your id");
+                            string id = Console.ReadLine();
+                            Console.WriteLine("Please Enter Your Password");
+                            string password = Console.ReadLine();
+                            Console.Write("Please Wait To Complete Your Information");
+                            for (int i = 0; i < 3; i++)
+                            {
+                                Thread.Sleep(700);
+                                Console.Write(".");
+                            }
+                            Console.WriteLine();
+                            Console.WriteLine("---------------------");
+                            bool IsFound = false;
+                            foreach (var item in teachers)
+                            {
+                                if (item.id == id && item.Password == password)
+                                {
+                                    IsFound = true;
+                                    Console.WriteLine("Logged in Successfully ");
+                                    Console.WriteLine("---------------------");
+                                }
+                            }
+                            if (IsFound == false)
+                            {
+                                Console.WriteLine("Email Or Password Incorrect");
+                                Console.WriteLine("---------------------");
+                            }
+                            while (true)
+                            {
+                                Console.WriteLine("1_view acc details ");
+                                Console.WriteLine("2_add note ");
+                                Console.WriteLine("3_view notes ");
+                                Console.WriteLine("4_add grades ");
+                                Console.WriteLine("5_view ranking tabble ");
+                                Console.WriteLine("6_exit ");
+                                Console.Write("please enter your choise : ");
+                                int v = int.Parse(Console.ReadLine());
+                                if (v == 1)
+                                {
+                                    newteacher.acc_ditails();
+                                }
+                                else if (v == 2)
+                                {
+                                    newteacher.add_notes();
+                                }
+                                else if (v == 3)
+                                {
+
+                                    newteacher.view_notes();
+                                }
+                                else if (v == 4)
+                                {
+                                    newteacher.add_grade();
+                                }
+                                else if(v == 5)
+                                {
+                                    newteacher.ranking_table();
+                                }
+                                else if (v == 6)
+                                {
+                                    Environment.Exit(0);
+                                }
+                            }
+
+
+                        }
+                        else if (z == 2)
+                        {
+                            Console.WriteLine("Please Enter Your Email");
+                            string email = Console.ReadLine();
+                            Console.WriteLine("Please Enter Your Password");
+                            string password = Console.ReadLine();
+                            Console.Write("Please Wait To Complete Your Information");
+                            for (int i = 0; i < 3; i++)
+                            {
+                                Thread.Sleep(700);
+                                Console.Write(".");
+                            }
+                            Console.WriteLine();
+                            Console.WriteLine("---------------------");
+                            bool Isfound = false;
+                            foreach (var Item in students)
+                            {
+                                if (Item.Email == email && Item.Password == password)
+                                {
+                                    Isfound = true;
+                                    Console.WriteLine("Logged in Successfully ");
+                                    Console.WriteLine("---------------------");
+                                }
+                            }
+                            if (Isfound == false)
+                            {
+                                Console.WriteLine("Email Or Password Incorrect");
+                                Console.WriteLine("---------------------");
+                            }
+                            while (true)
+                            {
+                                Console.WriteLine("1_view acc details");
+                                Console.WriteLine("2_view your point ");
+                                Console.WriteLine("3_view your notes ");
+                                Console.WriteLine("4_view your rank");
+                                Console.WriteLine("5_view ranking table ");
+                                Console.WriteLine("6_exit");
+                                Console.Write("please enter your choise : ");
+                                int i=int.Parse(Console.ReadLine());
+                                if(i==1)
+                                {
+                                    newstudent.acc_ditails();
+
+                                }
+                                else if (i==2)
+                                {
+                                    newstudent.view_point();
+                                }
+                                else if (i==3) 
+                                {
+                                    newstudent.notes();
+                                }
+                                else if (i == 4) 
+                                {
+                                    newstudent.view_rank();
+                                }
+                                else if (i == 5)
+                                {
+                                    newstudent.ranking_table();
+                                }
+                                else if (i == 6)
+                                {
+                                    Environment.Exit(0);
+                                }
+                            }
+                        }
+                    }
+                    else if (x == 3)
+                    {
+                        Environment.Exit(0);
+                    }
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine("---------------------");
+                    Console.WriteLine("Invaild Input");
+                    Console.WriteLine("---------------------");
+                }
+              Console.ReadKey();
+            }
+
+            
+        }
+    }
+}
